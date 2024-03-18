@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+    {% include 'nav.html' %}
+    <main>
+        <article>
+            <h2>Latest Updates</h2>
+            <!-- Article content goes here -->
+        </article>
+        <aside>
+            <h3>Chess Tactics</h3>
+            <!-- https://schach.de/de/howto/embedtactics -->
+            <iframe src="https://livetactics.chessbase.com" width="400" height="440"></iframe>
+        </aside>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>
