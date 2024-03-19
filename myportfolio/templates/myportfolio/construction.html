@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+    {% include 'nav.html' %}
+    <main>
+        <div class="container">
+            <h1>Page Not Implemented</h1>
+            <p>We're sorry, but the page you're looking for is not implemented yet.</p>
+            <p>Please check back later or contact the website administrator for assistance.</p>
+            <img src="{% static 'images/construction.jpeg' %}" alt="Under Construction">
+        </div>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -9,3 +9,18 @@ def home(request):
 def chess(request):
     context = {}
     return render(request, 'myportfolio/chess.html', context)
+
+def portfolio(request):
+    context = {}
+    return render(request, 'myportfolio/construction.html', context)
+
+def es(request):
+    context = {}
+    return render(request, 'myportfolio/construction.html', context)
+
+def links(request):
+    context = {}
+    return render(request, 'myportfolio/construction.html', context)
+
+
+
