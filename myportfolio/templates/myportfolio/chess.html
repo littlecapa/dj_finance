@@ -12,13 +12,14 @@
     {% include 'nav.html' %}
     <main>
         <article>
-            <h2>Latest Updates</h2>
+            <h2>Latest Chess Updates</h2>
             <!-- Article content goes here -->
         </article>
+        <aside>
+            <h3>Chess Tactics</h3>
+            <!-- https://schach.de/de/howto/embedtactics -->
+            <iframe src="https://livetactics.chessbase.com" width="400" height="440"></iframe>
+        </aside>
     </main>
-    {% with symbol_value=input_symbol %}
-        {% include 'if_stock_chart.html' %}
-    {% endwith %}
-    {% include 'footer.html' %}
 </body>
 </html>

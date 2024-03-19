@@ -3,4 +3,9 @@
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'myportfolio/home.html')
+    context = {'input_symbol': 'AAPL'}
+    return render(request, 'myportfolio/home.html', context)
+
+def chess(request):
+    context = {}
+    return render(request, 'myportfolio/chess.html', context)
