@@ -1,7 +1,7 @@
 # myportfolio/views.py
 import json
 from django.shortcuts import render
-from .models import MainShares
+from .models import MainShares, Category, Link
 
 def home(request):
     stocks = MainShares.objects.all()
@@ -23,8 +23,19 @@ def es(request):
     return render(request, 'myportfolio/construction.html', context)
 
 def links(request):
-    context = {}
-    return render(request, 'myportfolio/construction.html', context)
+    # Get all categories
+    categories = Category.objects.all()
+    print(categories)
+
+    # Pass categories and associated links to the template
+    categories_with_links = []
+    for category in categories:
+        # Get links associated with the current category
+        links = Link.objects.filter(category=category)
+        if links.count() > 0:
+            categories_with_links.append({'category': category, 'links': links})
+    #print(categories_with_links)
+    return render(request, 'myportfolio/links.html', {'categories': categories_with_links})
 
 def playground(request):
     data = ''' "symbols": [
