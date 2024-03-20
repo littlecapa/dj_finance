@@ -9,5 +9,7 @@ urlpatterns = [
     path('portfolio/', views.portfolio, name='portfolio'),
     path('es/', views.es, name='es'),
     path('links/', views.links, name='links'),
+    path('playground/', views.playground, name='playground'),
+    path('tradingview/', views.tradingview, name='tradingview'),
 ]
 

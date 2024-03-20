@@ -16,8 +16,8 @@
             <!-- Article content goes here -->
         </article>
     </main>
-    {% with symbol_value=input_symbol %}
-        {% include 'if_stock_chart.html' %}
+    {% with symbol_string=main width=400 %}
+        {% include 'widget_stock_chart_tv_react.html' %}
     {% endwith %}
     {% include 'footer.html' %}
 </body>
