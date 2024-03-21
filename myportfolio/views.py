@@ -1,14 +1,16 @@
 # myportfolio/views.py
 import json
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
+from django.core.serializers import serialize
 from .models import MainShares, Category, Link
 
 def home(request):
     stocks = MainShares.objects.all()
-    # Construct the symbol_string
-    symbols = [[stock.name, stock.symbol] for stock in stocks]
-    context = {'main' : json.dumps(symbols)}
-    return render(request, 'myportfolio/home.html', context)
+    stocks_data = [{'proName': stock.symbol, 'title': stock.name} for stock in stocks]
+    # Serializing the extracted data
+    stocks_json = mark_safe(json.dumps(stocks_data))
+    return render(request, 'myportfolio/home.html', {"symbol_list": stocks_json})
 
 def chess(request):
     context = {}
@@ -39,7 +41,15 @@ def links(request):
 
 def playground(request):
     symbol = "NASDAQ:AAPL"
-    return render(request, 'myportfolio/playground.html', {'input_symbol': symbol, 'width': '50%'})
+    symbol_list = [
+        {"proName": "NASDAQ:AAPL", "title": "Apple"},
+        {"proName": "NASDAQ:GOOGL", "title": "Alphabet"}
+    ]  
+    return render(request, 'myportfolio/playground.html', {'input_symbol': symbol, 'width': '50%', "symbol_list": mark_safe(json.dumps(symbol_list))})
+
+def detail(request):
+    symbol = "NASDAQ:AAPL"
+    return render(request, 'myportfolio/detail.html', {'input_symbol': symbol})
 
 def tradingview(request):
     symbols = [

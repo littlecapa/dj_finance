@@ -10,6 +10,7 @@ urlpatterns = [
     path('es/', views.es, name='es'),
     path('links/', views.links, name='links'),
     path('playground/', views.playground, name='playground'),
+    path('detail/', views.detail, name='detail'),
     path('tradingview/', views.tradingview, name='tradingview'),
 ]
 
