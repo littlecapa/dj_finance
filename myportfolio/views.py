@@ -38,63 +38,8 @@ def links(request):
     return render(request, 'myportfolio/links.html', {'categories': categories_with_links})
 
 def playground(request):
-    data = ''' "symbols": [
-					  {
-						"description": "",
-						"proName": "NASDAQ:TSLA"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:AAPL"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:NVDA"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:MSFT"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:AMZN"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:GOOGL"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:META"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:BRK.B"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:LLY"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:UNH"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:V"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:WMT"
-					  }
-					],
-					"showSymbolLogo": true,
-					"colorTheme": "light",
-					"isTransparent": false,
-					"displayMode": "adaptive",
-					"locale": "en"
-					 }]'''
-    return render(request, 'myportfolio/playground.html', {'data': data})
+    symbol = "NASDAQ:AAPL"
+    return render(request, 'myportfolio/playground.html', {'input_symbol': symbol, 'width': '50%'})
 
 def tradingview(request):
     symbols = [
