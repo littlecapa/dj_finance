@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from .models import MainShares, Category, Link
+from .forms import SearchForm
 
 def home(request):
     stocks = MainShares.objects.all()
@@ -59,3 +60,29 @@ def tradingview(request):
         # Add more symbols as needed
     ]
     return render(request, 'myportfolio/tradingview_master.html', {'symbols': symbols})
+
+def search_view(request):
+    form = SearchForm(request.GET)
+    search_results = None
+
+    if form.is_valid():
+        ticker_symbol = form.cleaned_data.get('ticker_symbol')
+        wkn = form.cleaned_data.get('wkn')
+
+        if ticker_symbol and wkn:
+            # Display an error message to the user
+            error_message = "Please fill out only one field."
+            return render(request, 'search.html', {'form': form, 'error_message': error_message})
+
+        if wkn:
+            # Call the microservice to identify the ticker symbol based on WKN
+            # Example:
+            # search_results = call_microservice(wkn)
+            pass
+        elif ticker_symbol:
+            # Perform search based on ticker symbol
+            # Example:
+            # search_results = perform_search(ticker_symbol)
+            pass
+
+    return render(request, 'myportfolio/search.html', {'form': form, 'search_results': search_results})
