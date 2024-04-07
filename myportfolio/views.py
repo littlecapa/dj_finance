@@ -53,13 +53,14 @@ def detail(request):
     return render(request, 'myportfolio/detail.html', {'input_symbol': symbol})
 
 def tradingview(request,ticker = 'AAPL'):
-    symbols = [
+    symbol_descr = [
         {"description": "", "proName": "NASDAQ:TSLA"},
         {"description": "", "proName": "NASDAQ:AAPL"},
         {"description": "", "proName": "NASDAQ:NVDA"},
         # Add more symbols as needed
     ]
-    return render(request, 'myportfolio/tradingview_master.html', {'symbols': symbols, 'ticker': ticker})
+    symbol_list = ['AAPL', 'MSFT', 'GOOGL', 'TSLA', 'AMZN', 'FB']
+    return render(request, 'myportfolio/tradingview_master.html', {'symbol_list': symbol_list, 'ticker': ticker})
 
 def search_view(request):
     form = SearchForm(request.GET)

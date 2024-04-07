@@ -170,65 +170,22 @@
 				<script
 					type="text/javascript"
 					src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-					async
-				>
+					async>
 					{
-					"symbols": [
-					  {
-						"description": "",
-						"proName": "NASDAQ:TSLA"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:AAPL"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:NVDA"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:MSFT"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:AMZN"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:GOOGL"
-					  },
-					  {
-						"description": "",
-						"proName": "NASDAQ:META"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:BRK.B"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:LLY"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:UNH"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:V"
-					  },
-					  {
-						"description": "",
-						"proName": "NYSE:WMT"
-					  }
-					],
-					"showSymbolLogo": true,
-					"colorTheme": "light",
-					"isTransparent": false,
-					"displayMode": "adaptive",
-					"locale": "en"
-					 }
+						"symbols": [
+                			{% for symbol in symbol_list %}
+                				{
+				                    "description": "",
+                				    "proName": "{{ symbol }}"
+                				}
+                				{% if not forloop.last %},{% endif %}
+                			{% endfor %} ],
+						"showSymbolLogo": true,
+						"colorTheme": "light",
+						"isTransparent": false,
+						"displayMode": "adaptive",
+						"locale": "en"
+						}
 				</script>
 			</div>
 			<!-- TradingView Widget END -->
