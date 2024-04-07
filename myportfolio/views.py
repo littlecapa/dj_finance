@@ -52,14 +52,14 @@ def detail(request):
     symbol = "NASDAQ:AAPL"
     return render(request, 'myportfolio/detail.html', {'input_symbol': symbol})
 
-def tradingview(request):
+def tradingview(request,ticker = 'AAPL'):
     symbols = [
         {"description": "", "proName": "NASDAQ:TSLA"},
         {"description": "", "proName": "NASDAQ:AAPL"},
         {"description": "", "proName": "NASDAQ:NVDA"},
         # Add more symbols as needed
     ]
-    return render(request, 'myportfolio/tradingview_master.html', {'symbols': symbols})
+    return render(request, 'myportfolio/tradingview_master.html', {'symbols': symbols, 'ticker': ticker})
 
 def search_view(request):
     form = SearchForm(request.GET)
@@ -80,9 +80,7 @@ def search_view(request):
             # search_results = call_microservice(wkn)
             pass
         elif ticker_symbol:
-            # Perform search based on ticker symbol
-            # Example:
-            # search_results = perform_search(ticker_symbol)
-            pass
-
+            target_url = f'/tradingview/{ticker_str}/'
+            return redirect(target_url)
+    
     return render(request, 'myportfolio/search.html', {'form': form, 'search_results': search_results})

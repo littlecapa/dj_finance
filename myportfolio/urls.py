@@ -12,6 +12,7 @@ urlpatterns = [
     path('playground/', views.playground, name='playground'),
     path('detail/', views.detail, name='detail'),
     path('tradingview/', views.tradingview, name='tradingview'),
+    path('tradingview/<str:ticker>/', views.tradingview, name='tradingview'),
     path('search/', views.search_view, name='search'),
 ]
 
