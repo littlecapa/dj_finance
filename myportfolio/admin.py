@@ -2,9 +2,10 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import MainShares, Category, Link
+from .models import MainShares, Category, Link, SearchHistory
 
 admin.site.register(MainShares)
+admin.site.register(SearchHistory)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

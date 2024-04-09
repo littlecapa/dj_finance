@@ -16,3 +16,4 @@ urlpatterns = [
     path('search/', views.search_view, name='search'),
 ]
 
+handler404 = views.chess

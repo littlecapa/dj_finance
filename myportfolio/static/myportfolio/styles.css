@@ -25,14 +25,17 @@ header p {
     font-family: 'Raleway', sans-serif;
 }
 
-nav {
+.lc-nav {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    background-color: #d62020;
 }
 
-a {
+.lc-link {
     color: midnightblue;
     text-decoration: none;
+    margin-right: 20px;
 }
 
 main {
@@ -49,7 +52,7 @@ aside {
     border: 1px solid lightblue;
 }
 
-nav, article, aside, footer {
+.lc-nav, article, aside, footer {
     padding: 10px;
 }
 

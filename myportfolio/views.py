@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from .models import MainShares, Category, Link
 from .forms import SearchForm
+from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 
 def home(request):
     stocks = MainShares.objects.all()
@@ -13,7 +14,7 @@ def home(request):
     stocks_json = mark_safe(json.dumps(stocks_data))
     return render(request, 'myportfolio/home.html', {"symbol_list": stocks_json})
 
-def chess(request):
+def chess(request, exception = None):
     context = {}
     return render(request, 'myportfolio/chess.html', context)
 
@@ -53,6 +54,10 @@ def detail(request):
     return render(request, 'myportfolio/detail.html', {'input_symbol': symbol})
 
 def tradingview(request,ticker = 'AAPL'):
+    try:
+        save_search_history(ticker)
+    except EXCEPTION_SymbolNotFound:
+        pass
     symbol_descr = [
         {"description": "", "proName": "NASDAQ:TSLA"},
         {"description": "", "proName": "NASDAQ:AAPL"},
