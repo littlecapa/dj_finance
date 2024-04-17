@@ -3,12 +3,20 @@ import json
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
-from .models import MainShares, Category, Link
+from .models import Category, Link, shareIds
 from .forms import SearchForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 
+def blog(request):
+    context = {}
+    return render(request, 'myportfolio/blog.html', context)
+
+def share_ids_popup(request):
+    share_ids = shareIds.objects.all()
+    return render(request, 'myportfolio/shareids_popup.html', {'share_ids': share_ids})
+
 def home(request):
-    stocks = MainShares.objects.all()
+    stocks = shareIds.objects.filter(isMainShare=True)
     stocks_data = [{'proName': stock.symbol, 'title': stock.name} for stock in stocks]
     # Serializing the extracted data
     stocks_json = mark_safe(json.dumps(stocks_data))

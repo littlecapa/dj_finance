@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('home', views.home, name='home'),
     path('chess/', views.chess, name='chess'),
     path('portfolio/', views.portfolio, name='portfolio'),
     path('es/', views.es, name='es'),
@@ -14,6 +15,8 @@ urlpatterns = [
     path('tradingview/', views.tradingview, name='tradingview'),
     path('tradingview/<str:ticker>/', views.tradingview, name='tradingview'),
     path('search/', views.search_view, name='search'),
+    path('share-ids-popup/', views.share_ids_popup, name='share_ids_popup'),
+    path('blog/', views.blog, name='blog'),
 ]
 
 handler404 = views.chess

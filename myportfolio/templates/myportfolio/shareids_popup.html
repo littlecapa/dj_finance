@@ -1,0 +1,40 @@
+<!-- shareids_popup.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Share Ids Popup</title>
+    <!-- Add any CSS styles for the popup -->
+</head>
+<body>
+    <h2>Stocks</h2>
+    <form id="StockForm">
+        <ul>
+            {% for share_id in share_ids %}
+                <p>
+                    <label>
+                        <input type="checkbox" name="selected_share_ids" value="{{ share_id.id }}">
+                        {{ share_id.name }} ({{ share_id.id }}): {{ share_id.symbol }}, {{ share_id.wkn }}, {{ share_id.isin }}
+                    </label>
+                </p>
+            {% endfor %}
+        </ul>
+        <div id="output"></div>
+        <button type="button" onclick="submitSelectedShareIds()">Submit</button>
+    </form>
+    <script>
+        function submitSelectedShareIds() {
+            // Collect IDs of checked shares
+            var selectedShares = [];
+            var checkboxes = document.querySelectorAll('input[name="selected_share_ids"]:checked');          
+            checkboxes.forEach(function(checkbox) {
+                selectedShares.push(checkbox.value);
+            });
+            // Pass the list of IDs to the calling form
+            window.opener.handleSelectedShares(selectedShares);
+            // Close the popup window
+            window.close();
+        }
+    </script>
+</body>
+</html>

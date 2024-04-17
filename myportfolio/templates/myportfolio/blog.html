@@ -1,0 +1,57 @@
+<script>
+    function openReferencedStocksPopup() {
+        var popup = window.open("{% url 'share_ids_popup' %}", "ShareIdsPopup", "width=600,height=400");
+        if (window.focus) {
+            popup.focus();
+        }
+    }
+    function handleSelectedShares(selectedShares) {
+        // Get the readonly input field
+        var selectedSharesField = document.getElementById("selectedShares");
+        
+        // Convert the selected shares array to a string
+        var selectedSharesString = JSON.stringify(selectedShares);
+        
+        // Set the value of the readonly input field to the selected shares string
+        selectedSharesField.value = selectedSharesString;
+    }
+</script>
+
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+    {% include 'nav.html' %}
+    <h2>New Blog Entry</h2>
+    <form id="blogEntryForm"></form>
+        <!-- Article content goes here -->
+        <label for="headLine">Headline:</label><br>
+        <textarea id="headLine" name="headLine" rows="1" cols="50" required></textarea><br><br>
+
+        <label for="source">Source:</label><br>
+        <textarea id="source" name="source"  rows="1" cols="50" required></textarea><br><br>
+
+        <label for="url">URL:</label><br>
+        <textarea id="url" name="url"  rows="1" cols="50" required></textarea><br><br>
+
+        <label for="summary">Summary:</label><br>
+        <textarea id="summary" name="summary" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="plannedAction">Planned Action:</label><br>
+        <textarea id="plannedAction" name="plannedAction" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="plannedAction">Referenced Stocks:</label><br>
+        <textarea id="selectedShares" name="selectedShares" rows="1" cols="50" readonly></textarea><br><br>
+        
+        <button type="button" onclick="openReferencedStocksPopup()">Referenced Stocks</button>
+    </form>
+</body>
+</html>
