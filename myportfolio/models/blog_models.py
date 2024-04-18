@@ -5,6 +5,9 @@ class blogEntry(models.Model):
     headLine = models.CharField(max_length=96)
     source = models.CharField(max_length=96, blank=True)
     url = models.URLField()
+    picture_url  = models.URLField(blank=True)
+    referencedStocks = models.TextField(blank=True, verbose_name="References to Stocks:", help_text="Use this Colab https://colab.research.google.com/drive/1yhgrlksevpURUSeDHN9RnU-lqWELjeCi?usp=sharing")
+    stocksProcessed = models.BooleanField(default=False, verbose_name="Stocks already processed:")
     summary = models.TextField(blank=True)
     plannedAction = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -26,3 +29,4 @@ class blog_shares(models.Model):
     class Meta:
         verbose_name = "In Blog referenced Stocks"
         verbose_name_plural = verbose_name
+        unique_together = ('blog_id', 'shares_id')

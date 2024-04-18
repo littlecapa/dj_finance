@@ -1,13 +1,19 @@
 from django.contrib import admin
+from django import forms
 
 # Register your models here.
 
 from .models import shareIds, SearchHistory, Category, Link, blogEntry, blog_shares
+from .forms import BlogEntryAdminForm
 
 admin.site.register(shareIds)
 admin.site.register(SearchHistory)
-admin.site.register(blogEntry)
 admin.site.register(blog_shares)
+
+class BlogEntryAdmin(admin.ModelAdmin):
+    form = BlogEntryAdminForm
+    
+admin.site.register(blogEntry, BlogEntryAdmin)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

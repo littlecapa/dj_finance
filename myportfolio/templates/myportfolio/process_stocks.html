@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+    {% include 'nav.html' %}
+    <form method="post">
+        {% csrf_token %}
+        <a>{{ context }}</a>
+        <div>
+            <label for="id_x">Headline:</label><br>
+            <textarea id="headline" name="headline" rows="1" cols="96">{{ headline }}</textarea>
+        </div>
+        <div>
+            <label for="id_y">Referenced Stocks:</label><br>
+            <textarea id="stocks" name="stocks" rows="{{ length }}" cols="50">{{ stocks }}</textarea>
+        </div>
+        <div>
+            <label for="id_y">Key Name:</label>
+            <input type="text" id="key_name" name="key_name" value="{{ key_name }}">
+        </div>
+
+        <!-- Add other form fields as needed -->
+
+        <button type="submit">Process</button>
+    </main>
+    {% include 'widget_ticker_tv.html' %}
+    {% include 'widget_running_ticker_tv.html' %}
+    {% include 'footer.html' %}
+</body>
+</html>

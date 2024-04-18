@@ -10,5 +10,9 @@ class shareIds(models.Model):
 
     def __str__(self):
         return self.name + ":" + self.symbol + "," + self.wkn + "," +self.isin
+    
+    class Meta:
+        verbose_name = "Share/Stock IDs"
+        verbose_name_plural = verbose_name
 
 

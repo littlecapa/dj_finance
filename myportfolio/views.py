@@ -1,15 +1,29 @@
 # myportfolio/views.py
 import json
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
-from .models import Category, Link, shareIds
+from .models import Category, Link, shareIds, blogEntry
 from .forms import SearchForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
+from .libs.text2stocks import extract_stocks
 
 def blog(request):
     context = {}
     return render(request, 'myportfolio/blog.html', context)
+
+def process_stocks_view(request, pk):
+    # Retrieve the blogEntry based on the provided pk
+    blog_entry = get_object_or_404(blogEntry, pk=pk)
+    context = {"headline": blog_entry.headLine, "stocks": blog_entry.referencedStocks}
+
+    key_name, stock_names = extract_stocks(blog_entry.referencedStocks)
+    context["key_name"] = key_name
+    context["length"] = len(stock_names)+1
+
+    # Render the template with the blogEntry data
+    print(context)
+    return render(request, 'myportfolio/process_stocks.html', context)
 
 def share_ids_popup(request):
     share_ids = shareIds.objects.all()

@@ -11,3 +11,8 @@ class ShareIdsPickerForm(forms.ModelForm):
         queryset=shareIds.objects.all(),
         widget=admin.widgets.FilteredSelectMultiple(verbose_name='Share IDs', is_stacked=False),
     )
+
+class BlogEntryAdminForm(forms.ModelForm):
+    class Meta:
+        model = blogEntry
+        exclude = ('stocksProcessed',)
