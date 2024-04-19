@@ -1,38 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}">
-</head>
-<body>
-    {% include 'header.html' %}
-    {% include 'nav.html' %}
-    <form method="post">
+<html lang="en-us" dir="ltr">
+    <head>
+        <title>Stock AI | Change Link Category | Django site admin</title>
+        {% include 'admin_header.html' %}
+        <link rel="stylesheet" href="{% static 'myportfolio/styles.css' %}">
+    </head>
+    
+    <body class=" app-myportfolio model-category change-form" data-admin-utc-offset="0">
+        {% include 'header.html' %}
+        {% include 'nav.html' %}
         {% csrf_token %}
-        <a>{{ context }}</a>
-        <div>
-            <label for="id_x">Headline:</label><br>
-            <textarea id="headline" name="headline" rows="1" cols="96">{{ headline }}</textarea>
-        </div>
-        <div>
-            <label for="id_y">Referenced Stocks:</label><br>
-            <textarea id="stocks" name="stocks" rows="{{ length }}" cols="50">{{ stocks }}</textarea>
-        </div>
-        <div>
-            <label for="id_y">Key Name:</label>
-            <input type="text" id="key_name" name="key_name" value="{{ key_name }}">
-        </div>
-
-        <!-- Add other form fields as needed -->
-
-        <button type="submit">Process</button>
-    </main>
-    {% include 'widget_ticker_tv.html' %}
-    {% include 'widget_running_ticker_tv.html' %}
-    {% include 'footer.html' %}
-</body>
+        <!-- Container -->
+        <div id="container"> 
+            <div class="main shifted" id="main">
+                <div class="content">
+                    <!-- Content -->
+                    <div id="content" class="colM">      
+                    <h2>Process Stocks in Blog Entry</h2>
+                    <div>
+                        <fieldset class="module aligned ">
+                            <div class="form-row field-name">
+                                <div>
+                                    <label class="required" for="id_name">Headline:</label>
+                                    <input type="text" name="name" value="{{ headline }}" class="vTextField" maxlength="92" required="" id="id_name">
+                                </div>
+                            </div>
+                            <div class="form-row field-priority">
+                                <div>
+                                    <label class="required" for="id_priority">Referenced Stocks:</label>
+                                    <textarea name="referencedStocks" cols="40" rows="5" class="vLargeTextField" id="id_referencedStocks">{{ stocks }}</textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                    <div class="submit-row">
+                        <input type="submit" value="Process" class="default" name="_save">
+                        <p class="deletelink-box"><a href="/myportfolio/" class="deletelink">Cancel</a></p>
+                    </div>   
+                </div>
+            </div>
+        <br class="clear">
+        {% include 'footer.html' %}
+    </div>
+    <!-- END Content -->
+    </body>
 </html>
