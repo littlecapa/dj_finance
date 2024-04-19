@@ -38,7 +38,7 @@ def home(request):
 
 def test(request, exception = None):
     context = {}
-    return render(request, 'myportfolio/html_test.html', context)
+    return render(request, 'myportfolio/test.html', context)
 
 def chess(request, exception = None):
     context = {}
