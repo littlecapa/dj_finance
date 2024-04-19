@@ -36,6 +36,10 @@ def home(request):
     stocks_json = mark_safe(json.dumps(stocks_data))
     return render(request, 'myportfolio/home.html', {"symbol_list": stocks_json})
 
+def test(request, exception = None):
+    context = {}
+    return render(request, 'myportfolio/html_test.html', context)
+
 def chess(request, exception = None):
     context = {}
     return render(request, 'myportfolio/chess.html', context)

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head>
+        <title>Stock AI | Change Link Category | Django site admin</title>
+        <link rel="stylesheet" href="/static/admin/css/base.css">        
+        <link rel="stylesheet" href="/static/admin/css/dark_mode.css">
+        <link rel="stylesheet" href="/static/admin/css/nav_sidebar.css">
+        <script src="/static/admin/js/nav_sidebar.js" defer=""></script>
+        <link rel="stylesheet" href="/static/admin/css/forms.css">
+        <script src="/admin/jsi18n/"></script>
+        <script src="/static/admin/js/vendor/jquery/jquery.js"></script>
+        <script src="/static/admin/js/jquery.init.js"></script>
+        <script src="/static/admin/js/core.js"></script>
+        <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+        <script src="/static/admin/js/actions.js"></script>
+        <script src="/static/admin/js/urlify.js"></script>
+        <script src="/static/admin/js/prepopulate.js"></script>
+        <script src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="/static/admin/css/responsive.css">
+        <meta name="robots" content="NONE,NOARCHIVE">
+    </head>
+    
+    <body class=" app-myportfolio model-category change-form" data-admin-utc-offset="0">   
+        <!-- Container -->
+        <div id="container"> 
+            <!-- Header -->
+            <div id="header">
+                <div id="branding">
+                    <h1 id="site-name"><a href="/admin/">Django administration</a></h1>
+                </div>
+                <div id="user-tools">
+                    Welcome,
+                    <strong>littlecapa</strong>.
+                    <a href="/">View site</a> /
+                    <a href="/admin/password_change/">Change password</a> /
+                    <form id="logout-form" method="post" action="/admin/logout/">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="sR5Y9LJfvCM4yWDUkNMZwfBbChrcDZqdLMOZ2r4CSXBYi76fnCV1emhS68nNqr5G">
+                        <button type="submit">Log out</button>
+                    </form>
+                </div>
+            </div>
+            <!-- END Header -->
+            <div class="breadcrumbs">
+                <a href="/admin/">Home</a>
+                <a href="/admin/myportfolio/">Myportfolio</a>
+                <a href="/admin/myportfolio/category/">Categories</a>
+                Stock AI
+            </div>
+            <div class="main shifted" id="main">
+                <button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="Toggle navigation"></button>
+                <nav class="sticky" id="nav-sidebar">
+                    <input type="search" id="nav-filter" placeholder="Start typing to filter…" aria-label="Filter navigation items">
+                    <div class="app-auth module">
+                        <table>
+                            <caption>
+                                <a href="/admin/auth/" class="section" title="Models in the Authentication and Authorization application">Authentication and Authorization</a>
+                            </caption>
+                            <tbody>
+                                <tr class="model-group">
+                                    <th scope="row"><a href="/admin/auth/group/">Groups</a></th>
+                                    <td><a href="/admin/auth/group/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-user">
+                                    <th scope="row"><a href="/admin/auth/user/">Users</a></th>
+                                    <td><a href="/admin/auth/user/add/" class="addlink">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="app-myportfolio module current-app">
+                        <table>
+                            <caption>
+                                <a href="/admin/myportfolio/" class="section" title="Models in the Myportfolio application">Myportfolio</a>
+                            </caption>
+                            <tbody>
+                                <tr class="model-blogentry">
+                                    <th scope="row"><a href="/admin/myportfolio/blogentry/">Blog Entries</a></th>
+                                    <td><a href="/admin/myportfolio/blogentry/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-category current-model">
+                                    <th scope="row"><a href="/admin/myportfolio/category/" aria-current="page">Categories</a></th>
+                                    <td><a href="/admin/myportfolio/category/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-blog_shares">
+                                    <th scope="row"><a href="/admin/myportfolio/blog_shares/">In Blog referenced Stocks</a></th>
+                                    <td><a href="/admin/myportfolio/blog_shares/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-link">
+                                    <th scope="row"><a href="/admin/myportfolio/link/">Links</a></th>
+                                    <td><a href="/admin/myportfolio/link/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-searchhistory">
+                                    <th scope="row"><a href="/admin/myportfolio/searchhistory/">Search History Entries</a></th>
+                                    <td><a href="/admin/myportfolio/searchhistory/add/" class="addlink">Add</a></td>
+                                </tr>
+                                <tr class="model-shareids">
+                                    <th scope="row"><a href="/admin/myportfolio/shareids/">Share/Stock IDs</a></th>
+                                    <td><a href="/admin/myportfolio/shareids/add/" class="addlink">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </nav>
+                <div class="content">
+                    <!-- Content -->
+                    <div id="content" class="colM">      
+                    <h1>Change Link Category</h1>
+                    <h2>Stock AI</h2>
+                    <div id="content-main">
+                        <ul class="object-tools">
+                            <li>
+                                <a href="/admin/myportfolio/category/3/history/" class="historylink">History</a>
+                            </li>
+                        </ul>
+                        <form method="post" id="category_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="sR5Y9LJfvCM4yWDUkNMZwfBbChrcDZqdLMOZ2r4CSXBYi76fnCV1emhS68nNqr5G">
+                    <div>
+                        <fieldset class="module aligned ">
+                            <div class="form-row field-name">
+                                <div>
+                                    <label class="required" for="id_name">Name:</label>
+                                    <input type="text" name="name" value="Stock AI" class="vTextField" maxlength="32" required="" id="id_name">
+                                </div>
+                            </div>
+                            <div class="form-row field-priority">
+                                <div>
+                                    <label class="required" for="id_priority">Priority:</label>
+                                    <input type="number" name="priority" value="3" class="vIntegerField" required="" id="id_priority">
+                                </div>
+                            </div>
+                        </fieldset>
+                    <div class="submit-row">
+                        <input type="submit" value="Save" class="default" name="_save">
+                        <p class="deletelink-box"><a href="/admin/myportfolio/category/3/delete/" class="deletelink">Delete</a></p>
+                        <input type="submit" value="Save and add another" name="_addanother">
+                        <input type="submit" value="Save and continue editing" name="_continue">
+                    </div>
+                    <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async=""></script>
+                    <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]"></script>
+                </div>
+            </form>
+        </div>
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+    <div id="footer"></div>
+                </div>
+            </div>
+        </div>
+        <!-- END Container -->
+    </body>
+</html>

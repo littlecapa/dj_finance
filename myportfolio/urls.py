@@ -17,6 +17,7 @@ urlpatterns = [
     path('search/', views.search_view, name='search'),
     path('share-ids-popup/', views.share_ids_popup, name='share_ids_popup'),
     path('blog/', views.blog, name='blog'),
+    path('test/', views.test, name='test'),
     path('process_stocks/<int:pk>/', views.process_stocks_view, name='process_stocks'),
 ]
 
