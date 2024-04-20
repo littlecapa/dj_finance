@@ -23,7 +23,7 @@
                             <div class="form-row field-name">
                                 <div>
                                     <label class="required" for="id_name">Headline:</label>
-                                    <input type="text" name="name" value="{{ headline }}" class="vTextField" maxlength="92" required="" id="id_name">
+                                    <input type="text" name="name" value="{{ headline }}" class="vTextField" maxlength="92" required="" id="headline">
                                 </div>
                             </div>
                             <div class="form-row field-priority">
@@ -34,9 +34,33 @@
                             </div>
                         </fieldset>
                     <div class="submit-row">
-                        <input type="submit" value="Process" class="default" name="_save">
+                        <input type="submit" value="Process" class="default" name="_process" id="process_btn">
                         <p class="deletelink-box"><a href="/myportfolio/" class="deletelink">Cancel</a></p>
-                    </div>   
+                    </div>
+                    {% include 'popup_stocks.html' %}
+                    <script>
+                        // Get the submit button element
+                        var submitBtn = document.getElementById('process_btn');
+                        var headline = document.getElementById('headline');
+                        // headline.value = "Test"
+                    
+                        // Add click event listener
+                        submitBtn.addEventListener('click', function() {
+                            // Show the popup form
+                            var popupForm = document.getElementById('popup-form');
+                            popupForm.style.display = 'block';
+                            var popup_ref_stocks = document.getElementById('popup_ref_stocks');
+                            var ref_stocks = document.getElementById('id_referencedStocks');
+                            popup_ref_stocks.value = ref_stocks.value;
+                        });
+                        function closePopup() {
+                            document.getElementById('popup-form').style.display = 'none';
+                        };
+                        function saveStocks() {
+                            headline.value = "Save";
+                            document.getElementById('popup-form').style.display = 'none';
+                        }
+                    </script>
                 </div>
             </div>
         <br class="clear">

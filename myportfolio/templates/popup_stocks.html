@@ -1,0 +1,27 @@
+<style>
+    #popup-form {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #000;
+        background-color: #fff;
+        padding: 20px;
+        z-index: 1000;
+    }
+</style>
+<!-- Popup form -->
+<div id="popup-form" style="display: none;">
+    <!-- Add your form fields or content here -->
+    <form>
+        <label for="name">Blog-ID:</label>
+        <input type="text" id="popup_blog_id" name="blog_id">
+        <p></p>
+        <label for="name">Stocks:</label>
+        <input type="text" id="popup_ref_stocks" name="ref_stocks">
+        <!-- Add more fields as needed -->
+        <p></p>
+        <input type="button" value="Submit" onclick="savePopup()">
+        <input type="button" value="Close" onclick="closePopup()">
+    </form>
+</div>
