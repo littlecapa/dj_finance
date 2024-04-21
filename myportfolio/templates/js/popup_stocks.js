@@ -27,8 +27,45 @@
                 // Handle successful response
                 var popupForm = document.getElementById('popup-form');
                 popupForm.style.display = 'block';
-                var popup_json = document.getElementById('json');
-                popup_json = response
+                var popup_blog_id = document.getElementById('popup_blog_id');
+                popup_blog_id.value = response.blog_id + ": " + response.headline
+                var popup_stocks = document.getElementById('popup_ref_stocks');
+                popup_stocks.value = response.ref_stocks
+                var popup_stock_table = document.getElementById('popup_stock_table');
+                var headerRow = document.createElement('tr');
+                var headers = ['Stock', 'WKN','ISIN', 'SYMBOL', 'New'];
+                headers.forEach(function(headerText) {
+                    var headerCell = document.createElement('th');
+                    headerCell.textContent = headerText;
+                    headerRow.appendChild(headerCell);
+                });
+                popup_stock_table.appendChild(headerRow);
+
+                for (var i = 0; i < response.shares.length; i++) {
+                    var item = response.shares[i];
+                    var row = popup_stock_table.insertRow();
+                    if (item.conflict){
+                        row.style.backgroundColor = 'red';
+                        var button = document.getElementById('submitButton');
+                        button.disabled = true;
+                    }
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = item.name;
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = item.wkn
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = item.isin
+                    var cell4 = row.insertCell(3);
+                    cell4.innerHTML = item.symbol
+                    var cell5 = row.insertCell(4);
+
+                    var cell5 = row.insertCell(4);
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.disabled = true;
+                    checkbox.checked = item.new;
+                    cell5.appendChild(checkbox);
+                }
             },
             error: function(xhr, status, error) {
                 // Handle error

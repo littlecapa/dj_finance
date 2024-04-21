@@ -9,13 +9,47 @@ from .forms import SearchForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks
 
+def createDummyShareObjects():
+    share_json_list = []
+    share_dict = {
+            'name': "name 1",
+            'symbol': "symbol",
+            'wkn': "wkn",
+            'isin': "",
+            'new': True,
+            'conflict': False
+        }
+    share_json_list.append(share_dict)
+    share_dict = {
+            'name': "name 2",
+            'symbol': "",
+            'wkn': "wkn",
+            'isin': "",
+            'new': False,
+            'conflict': False
+        }
+    share_json_list.append(share_dict)
+    share_dict = {
+            'name': "name 3",
+            'symbol': "",
+            'wkn': "",
+            'isin': "isin",
+            'new': False,
+            'conflict': False
+        }
+    share_json_list.append(share_dict)
+    return share_json_list
+
 def text2stocks(request):
     blog_id = request.GET.get('blog_id')
     headline = request.GET.get('headline')
     ref_stocks = request.GET.get('ref_stocks')
     print(blog_id, headline, ref_stocks)
-    # Call Function
-    response = HttpResponse('Success', status=200)
+    shares = createDummyShareObjects()
+    data = {'blog_id': blog_id, 'headline': headline, "ref_stocks": ref_stocks, "shares": shares}
+    # Serialize the data to JSON format
+    json_data = json.dumps(data)
+    response = HttpResponse(json_data, content_type='application/json', status=200)
     return response
 
 def blog(request):

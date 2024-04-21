@@ -17,12 +17,18 @@
         <label for="name">Blog-ID:</label>
         <input type="text" id="popup_blog_id" name="blog_id">
         <p></p>
-        <label for="name">Stocks:</label>
-        <input type="text" id="popup_ref_stocks" name="ref_stocks">
-        <!-- Add more fields as needed -->
+        <div class="form-row field-priority">
+            <div>
+                <label class="required" for="id_priority">Stocks:</label>
+                <textarea name="popup_ref_stocks" cols="40" rows="3" class="vLargeTextField" id="popup_ref_stocks">No Stocks</textarea>
+            </div>
+        </div>
+        <p></p>
+        <table id="popup_stock_table">
+        </table>
         <p></p>
         <div class="submit-row">
-            <input type="submit" value="Submit" onclick="savePopup()">
+            <input type="submit" value="Submit" id="submitButton" onclick="savePopup()">
             <input type="button" value="Close" onclick="closePopup()">
         </div>
     </form>
