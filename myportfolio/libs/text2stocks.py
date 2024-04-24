@@ -32,7 +32,6 @@ def extract_stocks(text):
         for type, pattern in STOCK_PATTERN_DICT.items():
             matches = re.findall(pattern, text, re.MULTILINE)
             if matches:
-                print(type, " match")
                 if type == "WKN_LIST":
                     shares = get_wkn_list(text)
                 shares = cleanup(shares)
@@ -58,9 +57,7 @@ def get_wkn_list(text):
     lines = text.split('\n')
     # Iterate through all lines except the first one, which is WKN
     for line in lines[1:]:
-        print("Line: ", line)
         parts = line.split()
-        print(parts)
         stock_name = ' '.join(parts[:-1])
         wkn_id = parts[-1]
         share_json_list.append(create_share_dict_obj(stock_name, wkn = wkn_id))

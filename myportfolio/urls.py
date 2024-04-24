@@ -20,6 +20,7 @@ urlpatterns = [
     path('test/', views.test, name='test'),
     path('process_stocks/<int:pk>/', views.process_stocks_view, name='process_stocks'),
     path('text2stocks/', views.text2stocks, name='text2stocks'),
+    path('savestocks/', views.save_blog_stocks, name='save_blog_stocks'),
 ]
 
 handler404 = views.chess

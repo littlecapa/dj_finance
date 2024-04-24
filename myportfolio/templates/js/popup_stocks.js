@@ -44,10 +44,10 @@
                 for (var i = 0; i < response.shares.length; i++) {
                     var item = response.shares[i];
                     var row = popup_stock_table.insertRow();
+                    var submit_button = document.getElementById('submitButton');
                     if (item.conflict){
                         row.style.backgroundColor = 'red';
-                        var button = document.getElementById('submitButton');
-                        button.disabled = true;
+                        submit_button.disabled = true;
                     }
                     var cell1 = row.insertCell(0);
                     cell1.innerHTML = item.name;
@@ -66,10 +66,28 @@
                     checkbox.checked = item.new;
                     cell5.appendChild(checkbox);
                 }
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
+                // Add event listener for submit button
+                submit_button.addEventListener('click', function() {
+                    csrftoken = getCookie('csrftoken');
+                    // Send AJAX request to server with response object
+                    $.ajax({
+                        url: response.return_url,
+                        type: 'POST',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                        data: {
+                            'response': JSON.stringify(response)
+                        },
+                        success: function() {
+                            // Navigate to URLx
+                            window.location.href = '';
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                        }
+                    });
+                });
             }
         });
     });
@@ -81,6 +99,23 @@
     function saveStocks() {
         headline.value = "Save";
         document.getElementById('popup-form').style.display = 'none';
+    }
+
+// Get CSRF token from the cookie
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Check if the cookie contains the CSRF token
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
     }
 
 </script>

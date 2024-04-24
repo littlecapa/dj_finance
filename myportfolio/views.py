@@ -14,10 +14,16 @@ def text2stocks(request):
     headline = request.GET.get('headline')
     ref_stocks = request.GET.get('ref_stocks')
     shares = extract_stocks(ref_stocks)
-    data = {'blog_id': blog_id, 'headline': headline, "ref_stocks": ref_stocks, "shares": shares}
+    data = {'blog_id': blog_id, 'headline': headline, "ref_stocks": ref_stocks, "shares": shares, "return_url": "/myportfolio/savestocks/"}
     # Serialize the data to JSON format
     json_data = json.dumps(data)
     response = HttpResponse(json_data, content_type='application/json', status=200)
+    return response
+
+def save_blog_stocks(request):
+    print("Welcome Back!")
+    print(request)
+    response = HttpResponse(content_type='application/json', status=200)
     return response
 
 def blog(request):
