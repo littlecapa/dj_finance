@@ -21,12 +21,12 @@ class blogEntry(models.Model):
 
 class blog_shares(models.Model):
     blog_id = models.ForeignKey('blogEntry', on_delete=models.CASCADE)
-    shares_id = models.ForeignKey('shareIds', on_delete=models.CASCADE)
+    shares_name = models.ForeignKey('shareIds', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.blog_id) + "-->" + str(self.shares_id)
+        return str(self.blog_id) + "-->" + str(self.shares_name)
     
     class Meta:
         verbose_name = "In Blog referenced Stocks"
         verbose_name_plural = verbose_name
-        unique_together = ('blog_id', 'shares_id')
+        unique_together = ('blog_id', 'shares_name')

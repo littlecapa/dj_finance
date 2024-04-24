@@ -9,43 +9,11 @@ from .forms import SearchForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks
 
-def createDummyShareObjects():
-    share_json_list = []
-    share_dict = {
-            'name': "name 1",
-            'symbol': "symbol",
-            'wkn': "wkn",
-            'isin': "",
-            'new': True,
-            'conflict': False
-        }
-    share_json_list.append(share_dict)
-    share_dict = {
-            'name': "name 2",
-            'symbol': "",
-            'wkn': "wkn",
-            'isin': "",
-            'new': False,
-            'conflict': False
-        }
-    share_json_list.append(share_dict)
-    share_dict = {
-            'name': "name 3",
-            'symbol': "",
-            'wkn': "",
-            'isin': "isin",
-            'new': False,
-            'conflict': False
-        }
-    share_json_list.append(share_dict)
-    return share_json_list
-
 def text2stocks(request):
     blog_id = request.GET.get('blog_id')
     headline = request.GET.get('headline')
     ref_stocks = request.GET.get('ref_stocks')
-    print(blog_id, headline, ref_stocks)
-    shares = createDummyShareObjects()
+    shares = extract_stocks(ref_stocks)
     data = {'blog_id': blog_id, 'headline': headline, "ref_stocks": ref_stocks, "shares": shares}
     # Serialize the data to JSON format
     json_data = json.dumps(data)
@@ -60,13 +28,6 @@ def process_stocks_view(request, pk):
     # Retrieve the blogEntry based on the provided pk
     blog_entry = get_object_or_404(blogEntry, pk=pk)
     context = {"blog_id": pk, "headline": blog_entry.headLine, "stocks": blog_entry.referencedStocks}
-
-    key_name, stock_names = extract_stocks(blog_entry.referencedStocks)
-    context["key_name"] = key_name
-    context["length"] = len(stock_names)+1
-
-    # Render the template with the blogEntry data
-    #print(context)
     return render(request, 'myportfolio/process_stocks.html', context)
 
 def share_ids_popup(request):
