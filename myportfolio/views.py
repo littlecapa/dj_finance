@@ -1,13 +1,14 @@
 # myportfolio/views.py
 import json
-from django.shortcuts import render, get_object_or_404
+import urllib.parse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from django.http import HttpResponse
 from .models import Category, Link, shareIds, blogEntry
 from .forms import SearchForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
-from .libs.text2stocks import extract_stocks
+from .libs.text2stocks import extract_stocks, saveBlogStocks
 
 def text2stocks(request):
     blog_id = request.GET.get('blog_id')
@@ -21,10 +22,14 @@ def text2stocks(request):
     return response
 
 def save_blog_stocks(request):
-    print("Welcome Back!")
-    print(request)
-    response = HttpResponse(content_type='application/json', status=200)
+    if request.method == "GET":
+        response = request.GET['response']
+        saveBlogStocks(response)
+    response = HttpResponse(status=200)
     return response
+
+def done(request):
+    return redirect('/myportfolio/home/')
 
 def blog(request):
     context = {}

@@ -72,7 +72,7 @@
                     // Send AJAX request to server with response object
                     $.ajax({
                         url: response.return_url,
-                        type: 'POST',
+                        type: 'GET',
                         headers: {
                             'X-CSRFToken': csrftoken
                         },
@@ -80,8 +80,7 @@
                             'response': JSON.stringify(response)
                         },
                         success: function() {
-                            // Navigate to URLx
-                            window.location.href = '';
+                            window.location.href = "/myportfolio/done";
                         },
                         error: function(xhr, status, error) {
                             // Handle errors

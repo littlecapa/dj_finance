@@ -1,5 +1,6 @@
-import re
+import re, json
 from myportfolio.models.shares_models import shareIds
+from myportfolio.models.blog_models import blogEntry, blog_shares
 
 STOCK_PATTERN_DICT = {
     "WKN_LIST": r"^WKN\n",
@@ -62,3 +63,25 @@ def get_wkn_list(text):
         wkn_id = parts[-1]
         share_json_list.append(create_share_dict_obj(stock_name, wkn = wkn_id))
     return share_json_list
+
+def saveBlogStocks(response):
+    try:
+        json_data = json.loads(response)
+        blog = blogEntry.objects.get(pk=json_data['blog_id'])
+        blog.referencedStocks = "Processed\n" + blog.referencedStocks
+        blog.save()
+        stock_list = json_data.get('shares', [])
+        for stock in stock_list:
+            print(stock)
+            if stock['new'] == True:
+                new_share = shareIds()
+                new_share.name = stock["name"]
+                new_share.wkn = stock["wkn"]
+                new_share.save()
+            stock = shareIds.objects.get(name=stock["name"])
+            new_blog_shares = blog_shares()
+            new_blog_shares.blog_id = blog
+            new_blog_shares.shares_name = stock
+            new_blog_shares.save()  
+    except blogEntry.DoesNotExist:
+        print("Error")
