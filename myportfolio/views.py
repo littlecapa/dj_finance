@@ -9,6 +9,7 @@ from .models import Category, Link, shareIds, blogEntry
 from .forms import SearchForm, CSVUploadForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks, saveBlogStocks
+from .libs.csv2stocks import createStocksFromCSV
 import csv
 
 def process_stock_csv(request):
@@ -16,13 +17,11 @@ def process_stock_csv(request):
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
             csv_file = form.cleaned_data['csv_file']
-            # Process the CSV file here
-            # For example, you can parse the CSV file and do something with its data
-            # Example code to read CSV file content:
-            csv_data = csv_file.read().decode('utf-8')
-            # Example code to print CSV data
-            print(csv_data)
-            return render(request, 'myportfolio/success.html')
+            success = createStocksFromCSV(csv_file)
+            if success:
+                return render(request, 'myportfolio/success.html')
+            else:
+                return render(request, 'myportfolio/error.html')
     else:
         form = CSVUploadForm()
     return render(request, 'myportfolio/upload_form.html', {'form': form})
