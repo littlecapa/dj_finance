@@ -2,6 +2,9 @@ from django import forms
 from django.contrib import admin
 from .models import shareIds, blogEntry
 
+class CSVUploadForm(forms.Form):
+    csv_file = forms.FileField(label='Select local CSV file')
+
 class SearchForm(forms.Form):
     symbol = forms.CharField(label="Ticker Symbol", max_length=20, required=False)
     wkn = forms.CharField(label="WKN", max_length=8, required=False)

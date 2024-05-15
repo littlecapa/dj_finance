@@ -6,9 +6,26 @@ from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from django.http import HttpResponse
 from .models import Category, Link, shareIds, blogEntry
-from .forms import SearchForm
+from .forms import SearchForm, CSVUploadForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks, saveBlogStocks
+import csv
+
+def process_stock_csv(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = form.cleaned_data['csv_file']
+            # Process the CSV file here
+            # For example, you can parse the CSV file and do something with its data
+            # Example code to read CSV file content:
+            csv_data = csv_file.read().decode('utf-8')
+            # Example code to print CSV data
+            print(csv_data)
+            return render(request, 'myportfolio/success.html')
+    else:
+        form = CSVUploadForm()
+    return render(request, 'myportfolio/upload_form.html', {'form': form})
 
 def text2stocks(request):
     blog_id = request.GET.get('blog_id')

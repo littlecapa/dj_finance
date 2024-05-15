@@ -22,6 +22,7 @@ urlpatterns = [
     path('text2stocks/', views.text2stocks, name='text2stocks'),
     path('savestocks/', views.save_blog_stocks, name='save_blog_stocks'),
     path('done/', views.done, name='done'),
+    path('upload/', views.process_stock_csv, name='upload_csv'),
 ]
 
 handler404 = views.chess
