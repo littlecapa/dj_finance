@@ -12,7 +12,7 @@ class shareIds(models.Model):
     currency = models.CharField(max_length=3 , default = "EUR")
 
     def __str__(self):
-        return self.name + ":" + self.symbol + "," + self.wkn + "," +self.isin
+        return self.name + "(" + self.isin + ")"
     
     class Meta:
         verbose_name = "Share/Stock IDs"

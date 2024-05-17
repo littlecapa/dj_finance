@@ -3,13 +3,15 @@ from django import forms
 
 # Register your models here.
 
-from .models import shareIds, SearchHistory, Category, Link, blogEntry, blog_shares, attrNames
+from .models import shareIds, SearchHistory, Category, Link, blogEntry, blog_shares, attrNames, strategy, strategyShares
 from .forms import BlogEntryAdminForm
 
 admin.site.register(shareIds)
 admin.site.register(SearchHistory)
 admin.site.register(blog_shares)
 admin.site.register(attrNames)
+admin.site.register(strategy)
+admin.site.register(strategyShares)
 
 class BlogEntryAdmin(admin.ModelAdmin):
     form = BlogEntryAdminForm
