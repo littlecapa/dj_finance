@@ -1,6 +1,10 @@
 from django.db import models
 
-sourceChoices = [("comdirect", "Comdirect"), ("es", "Effektenspiegel"), ("scalable", "Scalable")]
+sourceChoices = [("comdirect", "Extract Comdirect Share Names, WKN and ISIN"), ("comdirect portfolio", "Extract Comdirect Portfolio"), ("es", "Effektenspiegel"), ("scalable", "Scalable")]
+
+class upload(models.Model):
+    uploadData = models.CharField(max_length=32, choices=sourceChoices, primary_key=True)
+    info = models.TextField(blank=True)
 
 class attrNames(models.Model):
     source = models.CharField(max_length=32, choices=sourceChoices, primary_key=True)
@@ -9,6 +13,9 @@ class attrNames(models.Model):
     attrWkn = models.CharField(max_length=32)
     attrCurrency = models.CharField(max_length=32)
     attrEtf = models.CharField(max_length=32)
+    attrValue = models.CharField(max_length=32)
+    attrNumber = models.CharField(max_length=32)
+    attrDatum = models.CharField(max_length=32, default = "")
 
     def __str__(self):
         return self.source

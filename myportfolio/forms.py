@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib import admin
-from .models import shareIds, blogEntry
+from .models import shareIds, blogEntry, sourceChoices
 
 class CSVUploadForm(forms.Form):
+    method = forms.ChoiceField(choices=sourceChoices, widget=forms.Select)
     csv_file = forms.FileField(label='Select local CSV file')
 
 class SearchForm(forms.Form):

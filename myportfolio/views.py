@@ -9,15 +9,19 @@ from .models import Category, Link, shareIds, blogEntry
 from .forms import SearchForm, CSVUploadForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks, saveBlogStocks
-from .libs.csv2stocks import createStocksFromCSV
+from .libs.csv2stocks import createStocksFromCSV, importPortfolioFromCSV
 import csv
 
 def process_stock_csv(request):
     if request.method == 'POST':
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
+            method = form.cleaned_data['method']
             csv_file = form.cleaned_data['csv_file']
-            success = createStocksFromCSV(csv_file)
+            if method == "comdirect":
+                success = createStocksFromCSV(csv_file)
+            elif method == "comdirect portfolio":
+                success = importPortfolioFromCSV(csv_file)
             if success:
                 return render(request, 'myportfolio/success.html')
             else:
