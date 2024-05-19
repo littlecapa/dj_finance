@@ -72,6 +72,43 @@ footer {
     margin-top: 10px;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+th {
+    text-align: left;
+}
+td.number {
+    text-align: right;
+}
+
+.sort-indicator {
+    /* Style for the default indicator (without asc/desc) */
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid black;
+}
+
+.sort-indicator.asc {
+    /* Style for ascending sort order */
+    border-bottom: 0;
+    border-top: 8px solid black;
+}
+
+.sort-indicator.desc {
+    /* Style for descending sort order */
+    transform: rotate(180deg);
+}
+
+
 @media (max-width: 500px) {
     header {
         grid-template-columns: 1fr;

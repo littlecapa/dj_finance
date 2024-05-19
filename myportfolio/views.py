@@ -2,15 +2,35 @@
 import json
 import urllib.parse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Sum
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from django.http import HttpResponse
-from .models import Category, Link, shareIds, blogEntry
+from .models import Category, Link, shareIds, blogEntry, transaction
 from .forms import SearchForm, CSVUploadForm
 from .libs.tradeview_info import save_search_history, EXCEPTION_SymbolNotFound
 from .libs.text2stocks import extract_stocks, saveBlogStocks
 from .libs.csv2stocks import createStocksFromCSV, importPortfolioFromCSV
-import csv
+
+def portfolio(request):
+    sort_by = request.GET.get('sort_by', 'shares_name__name')  # Default sorting by name
+    sort_order = request.GET.get('sort_order', 'asc')
+
+    if sort_order == 'desc':
+        sort_by = f'-{sort_by}'
+
+    aggregated_data = transaction.objects.values('shares_name__name').annotate(
+        total_number_shares=Sum('numberShares'),
+        total_shares_value=Sum('shares_value')
+    ).order_by('shares_name__name')
+    total_shares_value = aggregated_data.aggregate(total=Sum('total_shares_value'))['total']
+    context = {
+        'aggregated_data': aggregated_data,
+        'total_shares_value': total_shares_value,
+        'sort_by': request.GET.get('sort_by', 'shares_name__name'),
+        'sort_order': request.GET.get('sort_order', 'asc')
+    }
+    return render(request, 'myportfolio/portfolio.html', context)
 
 def process_stock_csv(request):
     if request.method == 'POST':
@@ -79,10 +99,6 @@ def test(request, exception = None):
 def chess(request, exception = None):
     context = {}
     return render(request, 'myportfolio/chess.html', context)
-
-def portfolio(request):
-    context = {}
-    return render(request, 'myportfolio/construction.html', context)
 
 def es(request):
     context = {}

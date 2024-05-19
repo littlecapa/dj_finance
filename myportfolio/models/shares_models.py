@@ -11,6 +11,12 @@ class shareIds(models.Model):
     isEtf  = models.BooleanField(default = False)
     currency = models.CharField(max_length=3 , default = "EUR")
 
+    # Define fields for filtering
+    list_filter = ('name', 'isin')
+    
+    # Define default ordering
+    ordering = ('-name',)  # Sorting by 'field1' in descending order
+
     def __str__(self):
         return self.name + "(" + self.isin + ")"
     
@@ -25,6 +31,9 @@ class transaction(models.Model):
     numberShares = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     info = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
+
+    # Define fields for filtering
+    list_filter = ('shares_name')
 
     def __str__(self):
         return self.shares_name.name + "(" + str(self.date)[0:10] + ")"
