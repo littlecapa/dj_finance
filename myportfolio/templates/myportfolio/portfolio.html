@@ -1,5 +1,6 @@
 {% load static %}
 {% load custom_filters %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,19 +17,20 @@
         <thead>
             <tr>
                 <th>
-                    <a href="?sort_by=shares_name__name&sort_order={{ sort_order }}">
+                    <a href="?sort_by=shares_name__name&sort_order={% toggle_sort_order sort_by sort_order 'shares_name__name' %}">
                         Share Name
-                        {% if sort_by == 'shares_name__name' %}
-                            <span class="sort-indicator{% if sort_order == 'asc' %} asc{% endif %}"></span>
+                        {% if 'shares_name__name' in sort_by %}
+                            {{ sort_order }}
+                            <span class="sort-indicator{% if sort_order == 'asc' %} desc{% else %} asc{% endif %}"></span>
                         {% endif %}
                     </a>
                 </th>
                 <th>Number of Shares</th>
                 <th>
-                    <a href="?sort_by=total_shares_value&sort_order={{ sort_order }}">
+                    <a href="?sort_by=total_shares_value&sort_order={% toggle_sort_order sort_by sort_order 'total_shares_value' %}">
                         Value of Shares
-                        {% if sort_by == 'total_shares_value' %}
-                            <span class="sort-indicator{% if sort_order == 'asc' %} asc{% endif %}"></span>
+                        {% if 'total_shares_value' in sort_by%}
+                            <span class="sort-indicator{% if sort_order == 'asc' %} desc{% else %} asc{% endif %}"></span>
                         {% endif %}
                     </a>
                 </th>

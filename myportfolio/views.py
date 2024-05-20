@@ -13,22 +13,24 @@ from .libs.text2stocks import extract_stocks, saveBlogStocks
 from .libs.csv2stocks import createStocksFromCSV, importPortfolioFromCSV
 
 def portfolio(request):
-    sort_by = request.GET.get('sort_by', 'shares_name__name')  # Default sorting by name
-    sort_order = request.GET.get('sort_order', 'asc')
+    sort_by = request.GET.get('sort_by', 'total_shares_value')  # Default sorting by name
+    sort_order = request.GET.get('sort_order', 'desc')
 
     if sort_order == 'desc':
         sort_by = f'-{sort_by}'
 
+    print("Sort Order: ", sort_by, sort_order)
+
     aggregated_data = transaction.objects.values('shares_name__name').annotate(
         total_number_shares=Sum('numberShares'),
         total_shares_value=Sum('shares_value')
-    ).order_by('shares_name__name')
+    ).order_by(sort_by)
     total_shares_value = aggregated_data.aggregate(total=Sum('total_shares_value'))['total']
     context = {
         'aggregated_data': aggregated_data,
         'total_shares_value': total_shares_value,
-        'sort_by': request.GET.get('sort_by', 'shares_name__name'),
-        'sort_order': request.GET.get('sort_order', 'asc')
+        'sort_by': request.GET.get('sort_by', sort_by),
+        'sort_order': request.GET.get('sort_order', sort_order)
     }
     return render(request, 'myportfolio/portfolio.html', context)
 
